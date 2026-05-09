@@ -1,12 +1,10 @@
 name: Build APK
-on: 
-  push:
-  workflow_dispatch:
+on: [push, workflow_dispatch]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: 
+    container:
       image: kivy/buildozer:latest
       env:
         ALLOW_ROOT: 1
@@ -19,22 +17,18 @@ jobs:
         with:
           path: .buildozer_global
           key: buildozer-global-${{ hashFiles('buildozer.spec') }}
-          restore-keys: buildozer-global-
 
       - name: Cache buildozer android
         uses: actions/cache@v4
         with:
           path: .buildozer/android
           key: buildozer-android-${{ hashFiles('buildozer.spec') }}
-          restore-keys: buildozer-android-
 
       - name: Build APK
-        run: |
-          buildozer android debug
+        run: buildozer android debug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
-        if: success()
         with:
           name: app-apk
           path: bin/*.apk
