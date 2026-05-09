@@ -6,6 +6,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      USER: runner
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -27,11 +29,3 @@ jobs:
         with:
           name: app-apk
           path: ${{ steps.buildozer_build.outputs.filename }}
-      - name: Build with buildozer
-        run: buildozer android debug
-
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: app-apk
-          path: bin/*.apk
