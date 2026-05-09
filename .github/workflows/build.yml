@@ -8,12 +8,13 @@ jobs:
       image: kivy/buildozer:latest
       env:
         ALLOW_ROOT: 1
+        BUILDOZER_AUTO_ACCEPT_LICENSES: 1
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Build APK
-        run: yes | buildozer android debug
+        run: buildozer -v android debug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
