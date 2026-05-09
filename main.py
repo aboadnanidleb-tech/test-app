@@ -3,8 +3,9 @@ from kivy.uix.label import Label
 
 class MyApp(App):
     def build(self):
-        return Label(text='مرحبا! هذا أول تطبيق لي\nاشتغل بنجاح 🎉', 
+        return Label(text='المبرمج عبد العزيز\nأول تطبيق لي اشتغل بنجاح 🎉', 
                      font_size=30, 
-                     halign='center')
+                     halign='center',
+                     valign='middle')
 
 MyApp().run()
