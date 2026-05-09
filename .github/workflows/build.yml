@@ -2,18 +2,19 @@ name: Build APK
 
 on:
   push:
-    branches: [main]
+    branches: [main, master]
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      ALLOW_ROOT: 1
+      BUILDOZER_ALLOW_ROOT: 1
+      BUILDOZER_AUTO_ACCEPT_LICENSES: 1
+    
     container:
       image: kivy/buildozer:latest
-      env:
-        ALLOW_ROOT: 1
-        BUILDOZER_ALLOW_ROOT: 1
-        BUILDOZER_AUTO_ACCEPT_LICENSES: 1
     
     steps:
       - name: Checkout code
