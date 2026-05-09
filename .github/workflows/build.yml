@@ -1,5 +1,9 @@
 name: Build APK
-on: [push, workflow_dispatch]
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -8,9 +12,11 @@ jobs:
       image: kivy/buildozer:latest
       env:
         ALLOW_ROOT: 1
+        BUILDOZER_ALLOW_ROOT: 1
         BUILDOZER_AUTO_ACCEPT_LICENSES: 1
+    
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Build APK
@@ -19,5 +25,5 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: app-apk
+          name: myapp-apk
           path: bin/*.apk
